@@ -8,16 +8,23 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import { LoginWithFirebase } from "./functions/firebase";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(() => {
     return Boolean(localStorage.getItem("authToken"));
   });
 
-  const handleLogin = (e, email, password) => {
+  const handleLogin =  async (e, email, password) => {
     e.preventDefault();
-    alert(email)
-    alert(password)
+    try {
+     const  user  =  await LoginWithFirebase(email,password)
+      localStorage.setItem("authToken", user._tokenResponse.refreshToken);
+      setLoggedIn(true);
+    }
+    catch(err){
+      alert(err.message)
+    }
   };
 
   const handleLogout = () => {
