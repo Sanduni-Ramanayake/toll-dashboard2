@@ -11,17 +11,13 @@ import {
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(() => {
-    // Check for token in localStorage
     return Boolean(localStorage.getItem("authToken"));
   });
 
-  // Mock login handler: accepts any credentials and sets a fake JWT token
   const handleLogin = (e, email, password) => {
     e.preventDefault();
-    // Generate a mock JWT token (for demo purposes only)
-    const mockToken = btoa(`${email}:${password}:${Date.now()}`);
-    localStorage.setItem("authToken", mockToken);
-    setLoggedIn(true);
+    alert(email)
+    alert(password)
   };
 
   const handleLogout = () => {
@@ -33,7 +29,6 @@ function App() {
     return <LoginPage onLogin={handleLogin} />;
   }
 
-  // Lazy import to avoid circular dependency if needed
   const Transactions = require("./pages/Transactions").default;
   const GateDashboard = require("./pages/GateDashboard").default;
 
