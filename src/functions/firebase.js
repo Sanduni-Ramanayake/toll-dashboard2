@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -19,8 +20,14 @@ const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
 
+const db = getFirestore(app);
+
 async function LoginWithFirebase(email, password) {
   return await signInWithEmailAndPassword(auth, email, password);
 }
 
-export { LoginWithFirebase };
+
+async function GetCurrentVehicles(params) {
+  return await getDocs(collection(db, "vehicles"));
+}
+export { LoginWithFirebase, GetCurrentVehicles };

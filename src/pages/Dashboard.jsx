@@ -4,6 +4,7 @@ import RevenueChart from "../components/RevenueChart";
 import TrafficChart from "../components/TrafficChart";
 import Transactions from "../components/Transactions";
 import { useEffect, useState } from "react";
+import { GetCurrentVehicles } from "../functions/firebase";
 
 export default function Dashboard({ onLogout }) {
   const [data] = useState({
@@ -14,6 +15,10 @@ export default function Dashboard({ onLogout }) {
   });
   useEffect(() => {
     document.title = "Toll Admin Dashboard";
+    GetCurrentVehicles().then((snapshot) => {
+      const vehicles = snapshot.docs.map((doc) => doc.data());
+      console.log(vehicles);
+    });
   }, []);
 
   return (

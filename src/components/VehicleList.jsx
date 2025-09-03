@@ -25,7 +25,7 @@ export default function VehicleList({ vehicles, onEdit, onView }) {
               <div>
                 <div className="text-lg font-semibold">{v.plate}</div>
                 <div className="text-sm text-gray-500">
-                  {v.type}
+                  {v.confidence.toFixed(2)}
                   <span className="mx-1 text-gray-300">•</span>
                   {v.owner}
                 </div>
@@ -36,18 +36,18 @@ export default function VehicleList({ vehicles, onEdit, onView }) {
             <div className="flex items-center gap-6">
               <span
                 className={`text-xs px-3 py-1 rounded-full font-medium ${
-                  v.status === "Flagged"
+                  v.has_exited !== true
                     ? "bg-red-100 text-red-600"
                     : "bg-green-100 text-green-600"
                 }`}
               >
-                {v.status}
+                {v.has_exited}
               </span>
               <div className="text-right">
                 <div className="text-base font-semibold">
-                  ${v.amount.toFixed(2)}
+                  {v.location}
                 </div>
-                <div className="text-xs text-gray-500">{v.trips} trips</div>
+                <div className="text-xs text-gray-500">{v.entry_time}</div>
               </div>
               <div className="flex items-center gap-2">
                 <Icon
